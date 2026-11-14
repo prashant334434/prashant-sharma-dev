@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0c0c0c;
+  --fg: #f2f0eb;
+  --muted: #8a877f;
+  --line: #262624;
+  --accent: #c8f560;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
 }
+::selection { background: var(--accent); color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+html.custom-cursor, html.custom-cursor * { cursor: none !important; }
+
+/* slow colour shift on the About backdrop, like the reference's video */
+@keyframes hue-drift { 50% { filter: blur(40px) brightness(0.35) saturate(1.5) hue-rotate(185deg); } }
+.hue-drift { animation: hue-drift 14s ease-in-out infinite; }
